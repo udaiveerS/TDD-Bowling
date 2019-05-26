@@ -12,26 +12,38 @@ public class Game {
     public int score() {
         int score = 0;
 
-        for(int rollIndex = 0; rollIndex < 19; rollIndex += 2) {
+        for(int frameRoll = 0; frameRoll < 19; frameRoll += 2) {
             // spare
-            if(isSpare(rollIndex)) {
-                score += 10 + frames[rollIndex+2];
-            } else if(isStrike(frames[rollIndex])) {
-                score += 10 + frames[rollIndex+1] + frames[rollIndex+2];
+            if(isSpare(frameRoll)) {
+                score += 10 + getNextRoll(frameRoll);
+            } else if(isStrike(frameRoll)) {
+                score += 10 + getNextTwoFrameRolls(frameRoll);
             } else {
-                score += frames[rollIndex] + frames[rollIndex+1];
+                score += getCurrentTwoFrameRolls(frameRoll);
             }
         }
 
         return score;
     }
 
-    private boolean isStrike(int frame) {
-        return frame == 10;
+    private int getCurrentTwoFrameRolls(int frameRoll) {
+        return frames[frameRoll] + frames[frameRoll+1];
     }
 
-    private boolean isSpare(int rollIndex) {
-        return frames[rollIndex] + frames[rollIndex+1] == 10;
+    private int getNextTwoFrameRolls(int frameRoll) {
+        return frames[frameRoll + 1] + frames[frameRoll + 2];
+    }
+
+    private int getNextRoll(int frameRoll) {
+        return frames[frameRoll+2];
+    }
+
+    private boolean isStrike(int frameRoll) {
+        return frames[frameRoll] == 10;
+    }
+
+    private boolean isSpare(int frameRoll) {
+        return frames[frameRoll] + frames[frameRoll+1] == 10;
     }
 
     public void roll(int pinsRolled) {
