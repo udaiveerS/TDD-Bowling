@@ -31,6 +31,19 @@ public class GameTest {
     }
 
     @Test
+    public void rollMultiSpare() {
+        Game game = new Game();
+
+        game.roll(5);
+        game.roll(5);
+        game.roll(3);
+        game.roll(7);
+        game.roll(7);
+
+        assertEquals(37, game.score());
+    }
+
+    @Test
     public void rollAllStrike() {
         Game game = new Game();
         rollMany(10, 21, game);

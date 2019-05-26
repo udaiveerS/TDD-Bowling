@@ -15,26 +15,26 @@ public class Game {
         for(int frameRoll = 0; frameRoll < 19; frameRoll += 2) {
             // spare
             if(isSpare(frameRoll)) {
-                score += 10 + getNextRoll(frameRoll);
+                score += 10 + nextBallForSpare(frameRoll);
             } else if(isStrike(frameRoll)) {
-                score += 10 + getNextTwoFrameRolls(frameRoll);
+                score += 10 + nextTwoBallsForStrike(frameRoll);
             } else {
-                score += getCurrentTwoFrameRolls(frameRoll);
+                score += twoBallsInFrame(frameRoll);
             }
         }
 
         return score;
     }
 
-    private int getCurrentTwoFrameRolls(int frameRoll) {
+    private int twoBallsInFrame(int frameRoll) {
         return frames[frameRoll] + frames[frameRoll+1];
     }
 
-    private int getNextTwoFrameRolls(int frameRoll) {
+    private int nextTwoBallsForStrike(int frameRoll) {
         return frames[frameRoll + 1] + frames[frameRoll + 2];
     }
 
-    private int getNextRoll(int frameRoll) {
+    private int nextBallForSpare(int frameRoll) {
         return frames[frameRoll+2];
     }
 
